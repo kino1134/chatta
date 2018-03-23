@@ -1,0 +1,10 @@
+mongodb:
+  image: mongo:3.6.3
+  ports:
+    - "27017:27017"
+  volumes:
+    - "~/src/chatta/mongo/db:/data/db"
+    - "~/src/chatta/mongo/config:/data/configdb"
+  environment:
+    MONGO_INITDB_ROOT_USERNAME: admin
+    MONGO_INITDB_ROOT_PASSWORD: pass1!
