@@ -10,6 +10,9 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: 'Nuxt.js project' }
     ],
+    script: [
+      { src: 'https://use.fontawesome.com/releases/v5.0.6/js/all.js', defer: true }
+    ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
@@ -17,7 +20,10 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: ['~/assets/css/main.css'],
+  css: [
+    { src: 'bulma', lang: 'sass' },
+    { src: '~/assets/css/base.scss', lang: 'scss' }
+  ],
   /*
   ** Add axios globally
   */
