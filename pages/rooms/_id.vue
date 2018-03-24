@@ -1,39 +1,35 @@
 <template>
-  <div class="container is-fluid">
-    <RoomList />
-    <div class="room">
-      <header>
-        {{ room.name }}
-      </header>
-      <div class="messages">
-        <article v-for="(message, index) in messages" class="media">
-          <figure class="media-left">
-            <p class="image avator"><img src="https://bulma.io/images/placeholders/128x128.png"></p>
-          </figure>
-          <div class="media-content">
-            <div class="content">
-              <p>
-                <span class="message-info">
-                  <strong>{{ message.user_name }}</strong>
-                  <small>{{ message.user_id }}</small>
-                  <small>{{ message.posted | moment('LLLL')  }}</small>
-                </span>
-                <br>
-                <span v-html="markdown(message.body)"></span>
-              </p>
-            </div>
+  <div class="room">
+    <header>
+      {{ room.name }}
+    </header>
+    <div class="messages">
+      <article v-for="(message, index) in messages" class="media">
+        <figure class="media-left">
+          <p class="image avator"><img src="https://bulma.io/images/placeholders/128x128.png"></p>
+        </figure>
+        <div class="media-content">
+          <div class="content">
+            <p>
+              <span class="message-info">
+                <strong>{{ message.user_name }}</strong>
+                <small>{{ message.user_id }}</small>
+                <small>{{ message.posted | moment('LLLL')  }}</small>
+              </span>
+              <br>
+              <span v-html="markdown(message.body)"></span>
+            </p>
           </div>
-        </article>
-      </div>
-      <PostArea />
+        </div>
+      </article>
     </div>
+    <PostArea />
   </div>
 </template>
 
 <script>
 import marked from 'marked'
 import axios from '~/plugins/axios'
-import RoomList from '~/components/RoomList'
 import PostArea from '~/components/PostArea'
 
 export default {
@@ -46,7 +42,6 @@ export default {
     }
   },
   components: {
-    RoomList,
     PostArea
   },
   head () {
@@ -70,12 +65,6 @@ export default {
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/functions";
 @import "~bulma/sass/utilities/derived-variables";
-
-.container {
-  display: flex;
-  width: 100%;
-  margin: 0;
-}
 
 .messages {
   font-size: 14px;
