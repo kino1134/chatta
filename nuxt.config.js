@@ -24,11 +24,14 @@ module.exports = {
     { src: 'bulma', lang: 'sass' },
     { src: '~/assets/css/base.scss', lang: 'scss' }
   ],
+  plugins: [
+    '~/plugins/vue-moment'
+  ],
   /*
   ** Add axios globally
   */
   build: {
-    vendor: ['axios'],
+    vendor: ['axios', 'moment', 'vue-moment', 'marked'],
     /*
     ** Run ESLINT on save
     */

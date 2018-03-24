@@ -16,8 +16,11 @@
     "bulma": "^0.6.2",
     "cross-env": "^5.0.1",
     "express": "^4.15.3",
+    "marked": "^0.3.18",
+    "moment": "^2.21.0",
     "nuxt": "^1.0.0-rc3",
-    "source-map-support": "^0.4.15"
+    "source-map-support": "^0.4.15",
+    "vue-moment": "^3.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
