@@ -77,6 +77,10 @@ export default {
   margin: 0;
 }
 
+.messages {
+  font-size: 14px;
+}
+
 .room {
   flex: 1 1 auto;
   display: flex;
