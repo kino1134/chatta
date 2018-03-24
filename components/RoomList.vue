@@ -10,7 +10,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(favorite, index) in favorites" :key="index">
-            <a href="#">{{ favorite.name }}</a>
+            <nuxt-link :to="{ name: 'rooms-id', params: { id: favorite.room_id } }">{{ favorite.name }}</nuxt-link>
           </li>
         </ul>
       </template>
@@ -20,7 +20,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(channel, index) in channels" :key="index">
-            <a href="#">{{ channel.name }}</a>
+            <nuxt-link :to="{ name: 'rooms-id', params: { id: channel.room_id } }">{{ channel.name }}</nuxt-link>
           </li>
         </ul>
       </template>
@@ -30,7 +30,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(group, index) in groups" :key="index">
-            <a href="#">{{ group.name }}</a>
+            <nuxt-link :to="{ name: 'rooms-id', params: { id: group.room_id } }">{{ group.name }}</nuxt-link>
           </li>
         </ul>
       </template>
@@ -40,7 +40,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(direct, index) in directs" :key="index">
-            <a href="#">{{ direct.name }}</a>
+            <nuxt-link :to="{ name: 'rooms-id', params: { id: direct.room_id } }">{{ direct.name }}</nuxt-link>
           </li>
         </ul>
       </template>
