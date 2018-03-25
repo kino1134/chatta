@@ -29,9 +29,23 @@
 </template>
 
 <script>
+const store = {}
 export default {
   data () {
     return { inputMessage: '' }
+  },
+  props: [
+    'roomId'
+  ],
+  created () {
+    if (store[this.roomId]) {
+      this.inputMessage = store[this.roomId]
+    }
+  },
+  watch: {
+    inputMessage (val, old) {
+      store[this.roomId] = val
+    }
   },
   computed: {
     rows () {

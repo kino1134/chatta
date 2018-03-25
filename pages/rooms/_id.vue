@@ -23,7 +23,7 @@
         </div>
       </article>
     </div>
-    <PostArea />
+    <PostArea :roomId="room.room_id" />
   </div>
 </template>
 
@@ -67,7 +67,6 @@ export default {
 @import "~bulma/sass/utilities/derived-variables";
 
 .messages {
-  font-size: 14px;
 }
 
 .room {
@@ -75,10 +74,10 @@ export default {
   display: flex;
   flex-direction: column;
   .messages {
-    /* padding: 50px 50px 0; */
     flex: 1 1 0;
     overflow-x: hidden;
     overflow-y: scroll;
+    font-size: 14px;
   }
   .media {
     padding: 8px 50px 4px 20px;
