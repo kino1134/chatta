@@ -19,6 +19,12 @@ vue, vue-router, vuexを対象とする。
 ### WebSocketを使ってみる
 socket.ioを使う。スケールのことを念頭に置いて、socket.io-redisも併用してみたい。
 
+### 認証
+Passportで普通のログイン画面〜GoogleのOAuth認証を行ったみたい
+
+### ロギング
+GitHubのスター数的にはwinstonか
+
 ### SCSSを使ってみる
 CSSフレームワークとしてBulmaをnpm経由で入れてみた。  
 また、各ページコンポーネントでもscssでスタイル設定してみる。  
