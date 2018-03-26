@@ -1,4 +1,5 @@
 import { Router } from 'express'
+import Message from '../models/Message.js'
 
 const router = Router()
 
@@ -84,7 +85,14 @@ const messages = [
 
 /* GET users listing. */
 router.get('/messages', function (req, res, next) {
-  res.json(messages)
+  Message.find({}, (err, messages) => {
+    if (err) {
+      res.sendStatus(500)
+    } else {
+      res.json(messages)
+    }
+  })
+  // res.json(messages)
 })
 
 /* GET user by ID. */
@@ -96,5 +104,22 @@ router.get('/messages/:id', function (req, res, next) {
     res.sendStatus(404)
   }
 })
+
+router.post('/messages', function(req, res, next) {
+  let message = new Message(Object.assign({
+    posted: new Date(),
+    user_id: 'no_name',
+    user_name: 'ななし'
+  }, req.body))
+
+  message.save((err, obj) => {
+    if (err) {
+      res.senStatus(500)
+    } else {
+      res.json(obj)
+    }
+  })
+})
+
 
 export default router

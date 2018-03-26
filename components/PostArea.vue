@@ -20,7 +20,7 @@
       <textarea v-model="inputMessage" class="textarea is-radiusless" :rows="rows" placeholder="メッセージ"></textarea>
       </p>
       <p class="control">
-      <a class="button is-primary" :disabled="notInput">
+      <a class="button is-primary" v-on:click="sendPost" :disabled="notInput">
         <i class="fas fa-comment-alt fa-lg"></i>
       </a>
       </p>
@@ -29,6 +29,8 @@
 </template>
 
 <script>
+import axios from '~/plugins/axios'
+
 const store = {}
 export default {
   data () {
@@ -45,6 +47,14 @@ export default {
   watch: {
     inputMessage (val, old) {
       store[this.roomId] = val
+    }
+  },
+  methods: {
+    sendPost () {
+      axios.post('/api/messages', {
+        room_id: this.roomId,
+        body: this.inputMessage
+      }).then((res) => { this.inputMessage = '' })
     }
   },
   computed: {
