@@ -21,8 +21,11 @@
     "moment": "^2.21.0",
     "mongoose": "^5.0.11",
     "nuxt": "^1.0.0-rc3",
+    "socket.io": "^2.0.4",
+    "socket.io-redis": "^5.2.0",
     "source-map-support": "^0.4.15",
-    "vue-moment": "^3.2.0"
+    "vue-moment": "^3.2.0",
+    "vue-socket.io": "^2.1.1-b"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

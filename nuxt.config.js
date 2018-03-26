@@ -25,13 +25,17 @@ module.exports = {
     { src: '~/assets/css/base.scss', lang: 'scss' }
   ],
   plugins: [
-    '~/plugins/vue-moment'
+    '~/plugins/vue-moment',
+    '~/plugins/vue-socket-io'
+  ],
+  modules: [
+    '~/modules/socket-io.js'
   ],
   /*
   ** Add axios globally
   */
   build: {
-    vendor: ['axios', 'moment', 'vue-moment', 'marked'],
+    vendor: ['axios', 'moment', 'vue-moment', 'marked', 'vue-socket.io'],
     /*
     ** Run ESLINT on save
     */

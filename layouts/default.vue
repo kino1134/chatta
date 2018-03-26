@@ -12,6 +12,20 @@ import RoomList from '~/components/RoomList'
 export default {
   components: {
     RoomList
+  },
+  mounted () {
+    this.$socket.emit('test', 'hello')
+  },
+  sockets: {
+    connect () {
+      console.log('socket connected')
+    },
+    ping () {
+      console.log('ping')
+    },
+    pong () {
+      console.log('pong')
+    }
   }
 }
 </script>
