@@ -49,6 +49,15 @@ export default {
       title: this.room.name
     }
   },
+  sockets: {
+    posted (message) {
+      this.messages.push(message)
+      this.$nextTick(() => {
+        const container = this.$el.querySelector('.messages')
+        container.scrollTop = container.scrollHeight
+      })
+    }
+  },
   methods: {
     markdown (value) {
       return marked(value, {
@@ -65,9 +74,6 @@ export default {
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/functions";
 @import "~bulma/sass/utilities/derived-variables";
-
-.messages {
-}
 
 .room {
   flex: 1 1 auto;

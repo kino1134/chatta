@@ -116,6 +116,7 @@ router.post('/messages', function(req, res, next) {
     if (err) {
       res.senStatus(500)
     } else {
+      req.io.emit('posted', obj)
       res.json(obj)
     }
   })

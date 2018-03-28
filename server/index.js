@@ -15,6 +15,14 @@ const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 app.set('port', port)
 
+// Make io accessible to our router
+// TODO 正直、かなり危うい方法だと思う
+// 本来、APIとソケットは別にするものなのだろう。
+app.use(function(req, res, next) {
+  req.io = io;
+  next();
+});
+
 // JSONパーサの設定
 app.use(bodyParser.json())
 // Import API Routes
