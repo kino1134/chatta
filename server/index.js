@@ -1,6 +1,7 @@
 import express from 'express'
 import http from 'http'
 import socketIo from 'socket.io'
+import redisAdapter from 'socket.io-redis'
 import bodyParser from 'body-parser'
 import { Nuxt, Builder } from 'nuxt'
 import mongoose from 'mongoose'
@@ -11,6 +12,7 @@ import socket from './socket'
 const app = express()
 const server = http.createServer(app)
 const io = socketIo(server)
+io.adapter(redisAdapter({ host: 'localhost', port: 6379 }))
 
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
