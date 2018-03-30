@@ -46,7 +46,11 @@
             </span>
           </div>
         </div>
-        <button class="button is-block is-primary is-large is-fullwidth">Sign Up</button>
+        <div class="field">
+          <div class="control has-text-centered">
+            <button class="button is-primary is-large">Sign Up</button>
+          </div>
+        </div>
       </form>
     </div>
     <p class="has-text-grey has-text-centered">

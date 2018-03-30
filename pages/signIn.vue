@@ -1,5 +1,5 @@
 <template>
-  <div class="column is-6 is-offset-3">
+  <div class="column is-4 is-offset-4">
     <h3 class="title has-text-grey has-text-centered">Login</h3>
     <div class="box">
       <form action="">
@@ -19,7 +19,11 @@
             </span>
           </div>
         </div>
-        <button class="button is-block is-primary is-large is-fullwidth">Login</button>
+        <div class="field">
+          <p class="control has-text-centered">
+            <button class="button is-primary is-large">ログイン</button>
+          </p>
+        </div>
       </form>
     </div>
     <p class="has-text-grey has-text-centered">
