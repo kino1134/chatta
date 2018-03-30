@@ -3,6 +3,7 @@ import http from 'http'
 import socketIo from 'socket.io'
 import bodyParser from 'body-parser'
 import { Nuxt, Builder } from 'nuxt'
+import mongoose from 'mongoose'
 
 import api from './api'
 import socket from './socket'
@@ -27,6 +28,13 @@ app.use(function(req, res, next) {
 app.use(bodyParser.json())
 // Import API Routes
 app.use('/api', api)
+
+// MongoDBの設定
+mongoose.connect('mongodb://localhost:27017', {
+  user: 'admin',
+  pass: 'pass1!',
+  dbName: 'chatta'
+})
 
 // Import and Set Nuxt.js options
 let config = require('../nuxt.config.js')
