@@ -3,8 +3,14 @@ mongodb:
   ports:
     - "27017:27017"
   volumes:
-    - "~/src/chatta/mongo/db:/data/db"
-    - "~/src/chatta/mongo/config:/data/configdb"
+    - "./mongo/db:/data/db"
+    - "./mongo/config:/data/configdb"
   environment:
     MONGO_INITDB_ROOT_USERNAME: admin
     MONGO_INITDB_ROOT_PASSWORD: pass1!
+redis:
+  image: redis:4.0.9
+  ports:
+    - "6379:6379"
+  volumes:
+    - "./redis/db:/data"

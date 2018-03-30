@@ -15,3 +15,5 @@ build
 
 # MongoDB Data
 mongo
+# Redis
+redis
