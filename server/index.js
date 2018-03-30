@@ -5,6 +5,8 @@ import redisAdapter from 'socket.io-redis'
 import bodyParser from 'body-parser'
 import { Nuxt, Builder } from 'nuxt'
 import mongoose from 'mongoose'
+import session from 'express-session'
+import connectRedis from 'connect-redis'
 
 import api from './api'
 import socket from './socket'
@@ -17,6 +19,25 @@ io.adapter(redisAdapter({ host: 'localhost', port: 6379 }))
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 app.set('port', port)
+
+// セッション設定
+const RedisStore = connectRedis(session)
+app.use(session({
+  store: new RedisStore({
+    host: 'localhost',
+    port: 6379,
+    prefix: 'chatta.sess'
+  }),
+  secret: 'iw9XEPahkW9UjLsPyjnkvPZbNCqbcs22',
+  resave: false,
+  saveUninitialized: true,
+  rolling: true,
+  cookie: {
+    httpOnly: false,
+    maxAge: 14 * 24 * 3600 * 1000 // ２週間
+  }
+}))
+
 
 // Make io accessible to our router
 // TODO 正直、かなり危うい方法だと思う
