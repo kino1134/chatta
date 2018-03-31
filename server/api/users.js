@@ -1,5 +1,4 @@
 import { Router } from 'express'
-import passport from 'passport'
 import User from '../models/User'
 
 const router = Router()
@@ -13,6 +12,10 @@ router.get('/users', function (req, res, next) {
       res.json(users)
     }
   })
+})
+
+router.get('/users/my', function (req, res, next) {
+  res.json(req.user)
 })
 
 /* GET user by ID. */
@@ -37,18 +40,6 @@ router.post('/users', function(req, res, next) {
       res.json(obj)
     }
   })
-})
-
-router.post('/auth/local',
-  passport.authenticate('local', {  }),
-  function(req, res, next) {
-    req.session.save((err) => {
-      if (err) {
-        return res.sendStatus(500)
-      } else {
-        res.sendStatus(200)
-      }
-    })
 })
 
 export default router
