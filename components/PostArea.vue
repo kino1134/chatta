@@ -20,9 +20,9 @@
       <textarea v-model="inputMessage" class="textarea is-radiusless" :rows="rows" placeholder="メッセージ"></textarea>
       </p>
       <p class="control">
-      <a class="button is-primary" v-on:click="sendPost" :disabled="notInput">
+      <button class="button is-primary" v-on:click="sendPost" :disabled="notInput">
         <i class="fas fa-comment-alt fa-lg"></i>
-      </a>
+      </button>
       </p>
     </div>
   </footer>
