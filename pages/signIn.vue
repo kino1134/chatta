@@ -2,29 +2,27 @@
   <div class="column is-4 is-offset-4">
     <h3 class="title has-text-grey has-text-centered">Login</h3>
     <div class="box">
-      <form action="">
-        <div class="field">
-          <div class="control has-icons-left">
-            <input class="input is-large" type="text" placeholder="ID" autofocus="">
-            <span class="icon is-large is-left">
-              <i class="fas fa-at"></i>
-            </span>
-          </div>
+      <div class="field">
+        <div class="control has-icons-left">
+          <input v-model="user_id" class="input is-large" type="text" placeholder="ID" autofocus="">
+          <span class="icon is-large is-left">
+            <i class="fas fa-at"></i>
+          </span>
         </div>
-        <div class="field">
-          <div class="control has-icons-left">
-            <input class="input is-large" type="password" placeholder="Password">
-            <span class="icon is-large is-left">
-              <i class="fas fa-key"></i>
-            </span>
-          </div>
+      </div>
+      <div class="field">
+        <div class="control has-icons-left">
+          <input v-model="password" class="input is-large" type="password" placeholder="Password">
+          <span class="icon is-large is-left">
+            <i class="fas fa-key"></i>
+          </span>
         </div>
-        <div class="field">
-          <p class="control has-text-centered">
-            <button class="button is-primary is-large">ログイン</button>
-          </p>
-        </div>
-      </form>
+      </div>
+      <div class="field">
+        <p class="control has-text-centered">
+          <a @click="signIn" class="button is-primary is-large">ログイン</a>
+        </p>
+      </div>
     </div>
     <p class="has-text-grey has-text-centered">
       <nuxt-link :to="{ name: 'signUp' }">ユーザ登録</nuxt-link>&nbsp; /&nbsp;
@@ -34,11 +32,29 @@
 </template>
 
 <script>
+import axios from '~/plugins/axios'
+
 export default {
   layout: 'auth',
+  data () {
+    return {
+      user_id: '',
+      password: ''
+    }
+  },
   head () {
     return {
       title: 'サインイン'
+    }
+  },
+  methods: {
+    signIn () {
+      axios.post('/api/auth/local', {
+        user_id: this.user_id,
+        password: this.password
+      }).then((res) => {
+        this.$router.push('/')
+      })
     }
   }
 }
