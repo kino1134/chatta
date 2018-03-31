@@ -34,7 +34,7 @@ import PostArea from '~/components/PostArea'
 
 export default {
   async asyncData ({ params }) {
-    let { data: messages } = await axios.get('/api/messages')
+    let { data: messages } = await axios.get('/api/messages/' + params.id)
     let { data: room } = await axios.get('/api/rooms/' + params.id)
     return {
       room: room,

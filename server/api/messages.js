@@ -95,6 +95,18 @@ router.get('/messages', function (req, res, next) {
   // res.json(messages)
 })
 
+/* GET users listing. */
+router.get('/messages/:room_id', function (req, res, next) {
+  Message.find({ room_id: req.params.room_id }, (err, messages) => {
+    if (err) {
+      res.sendStatus(500)
+    } else {
+      res.json(messages)
+    }
+  })
+  // res.json(messages)
+})
+
 /* GET user by ID. */
 router.get('/messages/:id', function (req, res, next) {
   const id = parseInt(req.params.id)
