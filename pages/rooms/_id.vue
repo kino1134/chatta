@@ -49,13 +49,13 @@ export default {
       title: this.room.name
     }
   },
+  mounted () {
+    this.$nextTick(this.scrollLast)
+  },
   sockets: {
     posted (message) {
       this.messages.push(message)
-      this.$nextTick(() => {
-        const container = this.$el.querySelector('.messages')
-        container.scrollTop = container.scrollHeight
-      })
+      this.$nextTick(this.scrollLast)
     }
   },
   methods: {
@@ -65,6 +65,10 @@ export default {
         gfm: true,
         breaks: true
       })
+    },
+    scrollLast () {
+      const container = this.$el.querySelector('.messages')
+      container.scrollTop = container.scrollHeight
     }
   }
 }
