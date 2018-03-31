@@ -7,6 +7,8 @@ import { Nuxt, Builder } from 'nuxt'
 import mongoose from 'mongoose'
 import session from 'express-session'
 import connectRedis from 'connect-redis'
+import passport from 'passport'
+import { Strategy as LocalStrategy } from 'passport-local'
 
 import api from './api'
 import socket from './socket'
@@ -19,6 +21,9 @@ io.adapter(redisAdapter({ host: 'localhost', port: 6379 }))
 const host = process.env.HOST || '127.0.0.1'
 const port = process.env.PORT || 3000
 app.set('port', port)
+
+// JSONパーサの設定
+app.use(bodyParser.json())
 
 // セッション設定
 const RedisStore = connectRedis(session)
@@ -38,6 +43,10 @@ app.use(session({
   }
 }))
 
+// 認証の設定
+app.use(passport.initialize())
+app.use(passport.session())
+// app.use(new LocalStrategy(/* TODO */))
 
 // Make io accessible to our router
 // TODO 正直、かなり危うい方法だと思う
@@ -47,8 +56,6 @@ app.use(function(req, res, next) {
   next();
 });
 
-// JSONパーサの設定
-app.use(bodyParser.json())
 // Import API Routes
 app.use('/api', api)
 
