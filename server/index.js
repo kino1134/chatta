@@ -12,10 +12,12 @@ import { Strategy as LocalStrategy } from 'passport-local'
 
 import api from './api'
 import socket from './socket'
+import User from './models/User'
 
 const app = express()
 const server = http.createServer(app)
 const io = socketIo(server)
+
 io.adapter(redisAdapter({ host: 'localhost', port: 6379 }))
 
 const host = process.env.HOST || '127.0.0.1'
@@ -27,13 +29,13 @@ app.use(bodyParser.json())
 
 // セッション設定
 const RedisStore = connectRedis(session)
-app.use(session({
+const sessionMiddleware = session({
   store: new RedisStore({
     host: 'localhost',
     port: 6379,
     prefix: 'chatta.sess'
   }),
-  secret: 'iw9XEPahkW9UjLsPyjnkvPZbNCqbcs22',
+  secret: process.env.EXPRESS_SESSION_SECRET || 'iw9XEPahkW9UjLsPyjnkvPZbNCqbcs22',
   resave: false,
   saveUninitialized: true,
   rolling: true,
@@ -41,12 +43,32 @@ app.use(session({
     httpOnly: false,
     maxAge: 14 * 24 * 3600 * 1000 // ２週間
   }
-}))
+})
+app.use(sessionMiddleware)
 
 // 認証の設定
-app.use(passport.initialize())
-app.use(passport.session())
-// app.use(new LocalStrategy(/* TODO */))
+const passportInit = passport.initialize()
+const passportSession = passport.session()
+app.use(passportInit)
+app.use(passportSession)
+passport.use(new LocalStrategy(
+  { usernameField: 'user_id' },
+  User.authenticate
+))
+passport.serializeUser(User.serializeUser)
+passport.deserializeUser(User.deserializeUser)
+
+const auth = function (req, res, next) {
+  if (/^\/auth\/local$/.test(req.path)) {
+    next()
+  } else {
+    if (req.isAuthenticated()) {
+      next()
+    } else {
+      res.sendStatus(401)
+    }
+  }
+}
 
 // Make io accessible to our router
 // TODO 正直、かなり危うい方法だと思う
@@ -57,7 +79,8 @@ app.use(function(req, res, next) {
 });
 
 // Import API Routes
-app.use('/api', api)
+// ここまでにミドルウェアの設定(app.use)をすべて行う必要がある
+app.use('/api', auth, api)
 
 // MongoDBの設定
 mongoose.connect('mongodb://localhost:27017', {
@@ -85,5 +108,26 @@ app.use(nuxt.render)
 // Listen the server
 server.listen(port, host)
 console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
+
+io.use(function (socket, next) {
+  sessionMiddleware(socket.request, socket.request.res, function (req, res) {
+    next()
+  })
+})
+io.use(function (socket, next) {
+  passportInit(socket.request, socket.request.res, function (req, res) {
+    next()
+  })
+})
+io.use(function (socket, next) {
+  passportSession(socket.request, socket.request.res, function (req, res) {
+    next()
+  })
+})
+io.use(function (socket, next) {
+  console.log(socket.request.session)
+  console.log(socket.request.user)
+  next()
+})
 
 io.on('connect', socket)
