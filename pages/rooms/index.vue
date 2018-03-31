@@ -1,18 +1,26 @@
 <template>
-  <div class="room">
-    <header>
-      ホーム
-    </header>
-    <div class="messages">
-      これはホーム画面です。
-      <br>
-      左のリストからチャンネルを選んでください
+  <div class="container is-fluid">
+    <RoomList/>
+    <div class="room">
+      <header>
+        ホーム
+      </header>
+      <div class="messages">
+        これはホーム画面です。
+        <br>
+        左のリストからチャンネルを選んでください
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import RoomList from '~/components/RoomList'
+
 export default {
+  components: {
+    RoomList
+  },
   head () {
     return {
       title: 'ホーム'

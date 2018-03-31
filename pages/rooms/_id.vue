@@ -1,35 +1,39 @@
 <template>
-  <div class="room">
-    <header>
-      {{ room.name }}
-    </header>
-    <div class="messages">
-      <article v-for="(message, index) in messages" class="media">
-        <figure class="media-left">
-          <p class="image avator"><img src="https://bulma.io/images/placeholders/128x128.png"></p>
-        </figure>
-        <div class="media-content">
-          <div class="content">
-            <p>
-              <span class="message-info">
-                <strong>{{ message.user_name }}</strong>
-                <small>{{ message.user_id }}</small>
-                <small>{{ message.posted | moment('LLLL')  }}</small>
-              </span>
-              <br>
-              <span v-html="markdown(message.body)"></span>
-            </p>
+  <div class="container is-fluid">
+    <RoomList/>
+    <div class="room">
+      <header>
+        {{ room.name }}
+      </header>
+      <div class="messages">
+        <article v-for="(message, index) in messages" class="media">
+          <figure class="media-left">
+            <p class="image avator"><img src="https://bulma.io/images/placeholders/128x128.png"></p>
+          </figure>
+          <div class="media-content">
+            <div class="content">
+              <p>
+                <span class="message-info">
+                  <strong>{{ message.user_name }}</strong>
+                  <small>{{ message.user_id }}</small>
+                  <small>{{ message.posted | moment('LLLL')  }}</small>
+                </span>
+                <br>
+                <span v-html="markdown(message.body)"></span>
+              </p>
+            </div>
           </div>
-        </div>
-      </article>
+        </article>
+      </div>
+      <PostArea :roomId="room.room_id" />
     </div>
-    <PostArea :roomId="room.room_id" />
   </div>
 </template>
 
 <script>
 import marked from 'marked'
 import axios from '~/plugins/axios'
+import RoomList from '~/components/RoomList'
 import PostArea from '~/components/PostArea'
 
 export default {
@@ -42,6 +46,7 @@ export default {
     }
   },
   components: {
+    RoomList,
     PostArea
   },
   head () {
