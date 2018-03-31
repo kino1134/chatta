@@ -1,6 +1,6 @@
 <template>
   <aside class="sidebar menu">
-    <header>
+    <header class="login-user">
       {{ loginUser.user_name }}
     </header>
     <div class="room-list">
@@ -85,15 +85,21 @@ $sidebar-width: 220px;
   display: flex;
   flex-direction: column;
   height: 100%;
-}
 
-.room-list{
-  overflow-x: hidden;
-  overflow-y: scroll;
-  flex: 1 1 0;
-  .menu-label {
-    padding: 0 24px;
+  .login-user {
+    font-size: 1.2em;
+    margin: 8px 16px;
   }
+
+  .room-list {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    flex: 1 1 0;
+    .menu-label {
+      padding: 0 24px;
+    }
+  }
+
   .menu-list {
     a {
       padding-left: 24px;
