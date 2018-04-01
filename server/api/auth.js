@@ -10,7 +10,7 @@ router.post('/auth/local',
       if (err) {
         return res.sendStatus(500)
       } else {
-        res.sendStatus(200)
+        res.json(req.user)
       }
     })
 })
