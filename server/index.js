@@ -41,7 +41,7 @@ const sessionMiddleware = session({
   rolling: true,
   cookie: {
     httpOnly: false,
-    maxAge: 14 * 24 * 3600 * 1000 // ２週間
+    maxAge: 2 * 24 * 3600 * 1000 // ２日
   }
 })
 app.use(sessionMiddleware)
@@ -109,6 +109,7 @@ app.use(nuxt.render)
 server.listen(port, host)
 console.log('Server listening on ' + host + ':' + port) // eslint-disable-line no-console
 
+// express-session, passportの情報をsocket-ioでも見れるようにする
 io.use(function (socket, next) {
   sessionMiddleware(socket.request, socket.request.res, function (req, res) {
     next()
