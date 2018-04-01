@@ -1,7 +1,33 @@
 <template>
   <aside class="sidebar menu">
     <header class="login-user">
-      {{ $store.getters['user/loginUser'].user_name }}
+      <div class="dropdown" :class="{ 'is-active': this.isVisibleAccountMenu }">
+        <div class="dropdown-trigger">
+          <a @click="toggleVisibleAccountMenu" class="button" aria-haspopup="true" aria-controls="account-menu">
+            {{ $store.getters['user/loginUser'].user_name }}
+          </a>
+        </div>
+        <div id="account-menu" class="dropdown-menu" role="menu">
+          <div class="dropdown-content">
+            <a href="#" class="dropdown-item">
+              Dropdown item
+            </a>
+            <a class="dropdown-item">
+              Other dropdown item
+            </a>
+            <a href="#" class="dropdown-item is-active">
+              Active dropdown item
+            </a>
+            <a href="#" class="dropdown-item">
+              Other dropdown item
+            </a>
+            <hr class="dropdown-divider">
+            <a @click="logout"  class="dropdown-item">
+              ログアウト
+            </a>
+          </div>
+        </div>
+      </div>
     </header>
     <div class="room-list">
       <template v-if="favorites && favorites.length > 0">
@@ -54,6 +80,7 @@ import axios from '~/plugins/axios'
 export default {
   data () {
     return {
+      isVisibleAccountMenu: false,
       favorites: [],
       channels: [],
       groups: [],
@@ -68,6 +95,16 @@ export default {
       this.groups = rooms.filter(x => x.type === 'private')
       this.directs = rooms.filter(x => x.type === 'direct')
     })
+  },
+  methods: {
+    toggleVisibleAccountMenu () {
+      this.isVisibleAccountMenu = !this.isVisibleAccountMenu
+    },
+    async logout () {
+      await axios.post('/api/logout').then((res) => {
+        this.$router.push('/signIn')
+      })
+    }
   }
 }
 </script>

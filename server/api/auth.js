@@ -15,4 +15,10 @@ router.post('/auth/local',
     })
 })
 
+router.post('/logout', function(req, res, next) {
+  req.logout()
+  res.sendStatus(200)
+})
+
+
 export default router
