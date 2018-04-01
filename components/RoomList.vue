@@ -1,7 +1,7 @@
 <template>
   <aside class="sidebar menu">
     <header class="login-user">
-      {{ loginUser.user_name }}
+      {{ $store.getters['user/loginUser'].user_name }}
     </header>
     <div class="room-list">
       <template v-if="favorites && favorites.length > 0">
@@ -54,7 +54,6 @@ import axios from '~/plugins/axios'
 export default {
   data () {
     return {
-      loginUser: {},
       favorites: [],
       channels: [],
       groups: [],
@@ -62,9 +61,6 @@ export default {
     }
   },
   created () {
-    axios.get('/api/users/my').then((res) => {
-      this.loginUser = res.data
-    })
     axios.get('/api/rooms').then((res) => {
       const rooms = res.data
       this.favorites = rooms.filter(x => x.type === 'favorite')

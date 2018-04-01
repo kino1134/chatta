@@ -6,7 +6,11 @@
 
 <script>
 export default {
+  middleware: [
+    'checkAuth'
+  ],
   mounted () {
+    // 疎通確認
     this.$socket.emit('test', 'hello')
   }
 }

@@ -53,6 +53,10 @@ export default {
         user_id: this.user_id,
         password: this.password
       }).then((res) => {
+        this.$store.commit({
+          type: 'user/setUser',
+          user: res.data
+        })
         this.$router.push('/')
       })
     }
