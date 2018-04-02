@@ -1,12 +1,13 @@
 <template>
   <aside class="sidebar menu">
     <header class="login-user">
-      <div class="dropdown" :class="{ 'is-active': this.isVisibleAccountMenu }">
-        <div class="dropdown-trigger">
-          <a @click="toggleVisibleAccountMenu" class="button" aria-haspopup="true" aria-controls="account-menu">
+      <div class="dropdown menu-list" :class="{ 'is-active': this.isVisibleAccountMenu }">
+        <a class="dropdown-trigger" @click.stop="toggleVisibleAccountMenu" aria-haspopup="true" aria-controls="account-menu">
+          <span class="name">
             {{ $store.getters['user/loginUser'].user_name }}
-          </a>
-        </div>
+          </span>
+          <i class="fas fa-ellipsis-v fa-sm"></i>
+        </a>
         <div id="account-menu" class="dropdown-menu" role="menu">
           <div class="dropdown-content">
             <a href="#" class="dropdown-item">
@@ -88,6 +89,7 @@ export default {
     }
   },
   created () {
+    document.addEventListener('click', this.hideAccountMenu)
     axios.get('/api/rooms').then((res) => {
       const rooms = res.data
       this.favorites = rooms.filter(x => x.type === 'favorite')
@@ -96,9 +98,15 @@ export default {
       this.directs = rooms.filter(x => x.type === 'direct')
     })
   },
+  destroyed () {
+    document.removeEventListener('click', this.hideAccountMenu)
+  },
   methods: {
     toggleVisibleAccountMenu () {
       this.isVisibleAccountMenu = !this.isVisibleAccountMenu
+    },
+    hideAccountMenu () {
+      this.isVisibleAccountMenu = false
     },
     async logout () {
       await axios.post('/api/logout').then((res) => {
@@ -121,7 +129,10 @@ $sidebar-width: 220px;
 
   .login-user {
     font-size: 1.2em;
-    margin: 8px 16px;
+    .name {
+      display: inline-block;
+      width: $sidebar-width - 48px;
+    }
   }
 
   .room-list {
