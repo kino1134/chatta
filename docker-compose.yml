@@ -1,16 +1,31 @@
-mongodb:
-  image: mongo:3.6.3
-  ports:
-    - "27017:27017"
-  volumes:
-    - "./mongo/db:/data/db"
-    - "./mongo/config:/data/configdb"
-  environment:
-    MONGO_INITDB_ROOT_USERNAME: admin
-    MONGO_INITDB_ROOT_PASSWORD: pass1!
-redis:
-  image: redis:4.0.9
-  ports:
-    - "6379:6379"
-  volumes:
-    - "./redis/db:/data"
+version: "2.2"
+
+services:
+  # web:
+  #   build: .
+  #   init: true
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     WEB_HOST: 0.0.0.0
+  #     MONGO_HOST: mongodb
+  #     REDIS_HOST: redis
+  #   depends_on:
+  #     - mongodb
+  #     - redis
+  mongodb:
+    image: mongo:3.6.3
+    ports:
+      - "27017:27017"
+    volumes:
+      - "./mongo/db:/data/db"
+      - "./mongo/config:/data/configdb"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: pass1!
+  redis:
+    image: redis:4.0.9
+    ports:
+      - "6379:6379"
+    volumes:
+      - "./redis/db:/data"

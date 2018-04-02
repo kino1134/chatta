@@ -18,10 +18,10 @@ const app = express()
 const server = http.createServer(app)
 const io = socketIo(server)
 
-io.adapter(redisAdapter({ host: 'localhost', port: 6379 }))
+io.adapter(redisAdapter({ host: process.env.REDIS_HOST || 'localhost', port: process.env.REDIS_PORT || 6379 }))
 
-const host = process.env.HOST || '127.0.0.1'
-const port = process.env.PORT || 3000
+const host = process.env.WEB_HOST || '127.0.0.1'
+const port = process.env.WEB_PORT || 3000
 app.set('port', port)
 
 // JSONパーサの設定
@@ -31,8 +31,8 @@ app.use(bodyParser.json())
 const RedisStore = connectRedis(session)
 const sessionMiddleware = session({
   store: new RedisStore({
-    host: 'localhost',
-    port: 6379,
+    host: process.env.REDIS_HOST || 'localhost',
+    port: process.env.REDIS_PORT || 6379,
     prefix: 'chatta.sess'
   }),
   secret: process.env.EXPRESS_SESSION_SECRET || 'iw9XEPahkW9UjLsPyjnkvPZbNCqbcs22',
@@ -83,7 +83,8 @@ app.use(function(req, res, next) {
 app.use('/api', auth, api)
 
 // MongoDBの設定
-mongoose.connect('mongodb://localhost:27017', {
+const mongoUrl = `mongodb://${ process.env.MONGO_HOST || 'localhost' }:${ process.env.MONGO_PORT || 27017 }`
+mongoose.connect(mongoUrl, {
   user: 'admin',
   pass: 'pass1!',
   dbName: 'chatta'
