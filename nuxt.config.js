@@ -21,7 +21,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
-    { src: 'bulma', lang: 'sass' },
+    { src: '~/assets/css/bulma-all.sass', lang: 'sass' },
     { src: '~/assets/css/base.scss', lang: 'scss' }
   ],
   plugins: [
