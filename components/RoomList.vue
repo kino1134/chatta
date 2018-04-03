@@ -2,7 +2,7 @@
   <aside class="sidebar menu">
     <header class="login-user">
       <div class="dropdown menu-list" :class="{ 'is-active': this.isVisibleAccountMenu }">
-        <a class="dropdown-trigger" @click.stop="toggleVisibleAccountMenu" aria-haspopup="true" aria-controls="account-menu">
+        <a class="dropdown-trigger menu-item" @click.stop="toggleVisibleAccountMenu" aria-haspopup="true" aria-controls="account-menu">
           <span class="name">
             {{ $store.getters['user/loginUser'].user_name }}
           </span>
@@ -20,10 +20,12 @@
               Active dropdown item
             </a>
             <a href="#" class="dropdown-item">
-              Other dropdown item
+              <i class="far fa-user"></i>
+              アカウント設定
             </a>
             <hr class="dropdown-divider">
             <a @click="logout"  class="dropdown-item">
+              <i class="fa fa-sign-out-alt"></i>
               ログアウト
             </a>
           </div>
@@ -37,7 +39,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(favorite, index) in favorites" :key="index">
-            <nuxt-link :to="{ name: 'rooms-id', params: { id: favorite.room_id } }">{{ favorite.name }}</nuxt-link>
+            <nuxt-link :to="{ name: 'rooms-id', params: { id: favorite.room_id } }" class="menu-item">{{ favorite.name }}</nuxt-link>
           </li>
         </ul>
       </template>
@@ -47,7 +49,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(channel, index) in channels" :key="index">
-            <nuxt-link :to="{ name: 'rooms-id', params: { id: channel.room_id } }">{{ channel.name }}</nuxt-link>
+            <nuxt-link :to="{ name: 'rooms-id', params: { id: channel.room_id } }" class="menu-item">{{ channel.name }}</nuxt-link>
           </li>
         </ul>
       </template>
@@ -57,7 +59,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(group, index) in groups" :key="index">
-            <nuxt-link :to="{ name: 'rooms-id', params: { id: group.room_id } }">{{ group.name }}</nuxt-link>
+            <nuxt-link :to="{ name: 'rooms-id', params: { id: group.room_id } }" class="menu-item">{{ group.name }}</nuxt-link>
           </li>
         </ul>
       </template>
@@ -67,7 +69,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(direct, index) in directs" :key="index">
-            <nuxt-link :to="{ name: 'rooms-id', params: { id: direct.room_id } }">{{ direct.name }}</nuxt-link>
+            <nuxt-link :to="{ name: 'rooms-id', params: { id: direct.room_id } }" class="menu-item">{{ direct.name }}</nuxt-link>
           </li>
         </ul>
       </template>
@@ -133,6 +135,9 @@ $sidebar-width: 220px;
       display: inline-block;
       width: $sidebar-width - 48px;
     }
+    #account-menu {
+      left: 24px;
+    }
   }
 
   .room-list {
@@ -145,7 +150,7 @@ $sidebar-width: 220px;
   }
 
   .menu-list {
-    a {
+    .menu-item {
       padding-left: 24px;
       padding-right: 24px;
       width: $sidebar-width;

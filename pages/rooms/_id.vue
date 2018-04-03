@@ -2,8 +2,19 @@
   <div class="container is-fluid">
     <RoomList/>
     <div class="room">
-      <header>
-        {{ room.name }}
+      <header class="room-header">
+        <a class="toggle-star" :class="{ on: isFavorite }"><i class="fa-star fa-lg" :class="{ fa: isFavorite, far: !isFavorite }"></i></a>
+        <div class="room-info">
+          {{ room.name }}
+        </div>
+        <div class="spacer"></div>
+        <div class="room-action">
+          <a class="action-link tooltip is-tooltip-bottom" data-tooltip="ルーム情報"><i class="fa fa-info-circle fa-lg"></i></a>
+          <a class="action-link"><i class="fa fa-search fa-lg"></i></a>
+          <a class="action-link"><i class="fa fa-users fa-lg"></i></a>
+          <a class="action-link"><i class="fa fa-user-plus fa-lg"></i></a>
+          <a class="action-link"><i class="fa fa-ellipsis-v fa-lg"></i></a>
+        </div>
       </header>
       <div class="messages">
         <article v-for="(message, index) in messages" class="media">
@@ -42,6 +53,7 @@ export default {
     let { data: room } = await axios.get('/api/rooms/' + params.id)
     return {
       room: room,
+      isFavorite: false,
       messages: messages
     }
   },
@@ -88,6 +100,26 @@ export default {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  .room-header {
+    padding: 16px;
+    display: flex;
+    * {
+      flex-shrink: 0;
+    }
+    .spacer {
+      flex-grow: 1;
+    }
+    .toggle-star, .action-link {
+      padding: 0 1rem;
+      color: #cbced1;
+    }
+    .action-link:hover {
+      color: #1d74f5;
+    }
+    .toggle-star.on, .toggle-star:hover {
+      color: #f6c502;
+    }
+  }
   .messages {
     flex: 1 1 0;
     overflow-x: hidden;
