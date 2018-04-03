@@ -1,21 +1,21 @@
 version: "2.2"
 
 services:
-  # web:
-  #   build: .
-  #   init: true
-  #   ports:
-  #     - "80:3000"
-  #   volumes:
-  #     - "$PWD:/opt/chatta" # 「.」だけだとダメなので$PWDを使用
-  #     - "/opt/chatta/node_modules" # コンテナのモジュールを使用
-  #   environment:
-  #     WEB_HOST: 0.0.0.0
-  #     MONGO_HOST: mongodb
-  #     REDIS_HOST: redis
-  #   depends_on:
-  #     - mongodb
-  #     - redis
+  web:
+    build: .
+    init: true
+    ports:
+      - "80:3000"
+    volumes:
+      - "$PWD:/opt/chatta" # 「.」だけだとダメなので$PWDを使用
+      - "/opt/chatta/node_modules" # コンテナのモジュールを使用
+    environment:
+      WEB_HOST: 0.0.0.0
+      MONGO_HOST: mongodb
+      REDIS_HOST: redis
+    depends_on:
+      - mongodb
+      - redis
   mongodb:
     image: mongo:3.6.3
     ports:
