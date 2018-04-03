@@ -36,6 +36,11 @@ module.exports = {
   */
   build: {
     vendor: ['axios', 'moment', 'vue-moment', 'marked', 'vue-socket.io'],
+    postcss: {
+      plugins: {
+        'postcss-custom-properties': false
+      }
+    },
     /*
     ** Run ESLINT on save
     */
