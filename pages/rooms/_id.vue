@@ -1,24 +1,8 @@
 <template>
-  <div class="container is-fluid" :class="{ 'show-sidebar': isShowSidebar }">
+  <div class="container is-fluid">
     <RoomList/>
     <div class="room">
-      <header class="room-header">
-        <a @click.stop="showSidebar" class="room-burger">
-          <i class="fa fa-bars fa-lg"></i>
-        </a>
-        <a class="toggle-star" :class="{ on: isFavorite }"><i class="fa-star fa-lg" :class="{ fa: isFavorite, far: !isFavorite }"></i></a>
-        <div class="room-info">
-          {{ room.name }}
-        </div>
-        <div class="spacer"></div>
-        <div class="room-action">
-          <a class="action-link tooltip is-tooltip-bottom" data-tooltip="ルーム情報"><i class="fa fa-info-circle fa-lg"></i></a>
-          <a class="action-link"><i class="fa fa-search fa-lg"></i></a>
-          <a class="action-link"><i class="fa fa-users fa-lg"></i></a>
-          <a class="action-link"><i class="fa fa-user-plus fa-lg"></i></a>
-          <a class="action-link"><i class="fa fa-ellipsis-v fa-lg"></i></a>
-        </div>
-      </header>
+      <RoomHeader :room="room" :is-favorite="isFavorite"/>
       <div class="messages">
         <article v-for="(message, index) in messages" class="media">
           <figure class="media-left">
@@ -48,6 +32,7 @@
 import marked from 'marked'
 import axios from '~/plugins/axios'
 import RoomList from '~/components/RoomList'
+import RoomHeader from '~/components/RoomHeader'
 import PostArea from '~/components/PostArea'
 
 export default {
@@ -57,12 +42,12 @@ export default {
     return {
       room: room,
       isFavorite: false,
-      isShowSidebar: false,
       messages: messages
     }
   },
   components: {
     RoomList,
+    RoomHeader,
     PostArea
   },
   head () {
@@ -71,11 +56,7 @@ export default {
     }
   },
   mounted () {
-    this.$el.addEventListener('click', this.hideSidebar)
     this.$nextTick(this.scrollLast)
-  },
-  destroyed () {
-    this.$el.removeEventListener('click', this.hideSidebar)
   },
   sockets: {
     posted (message) {
@@ -94,12 +75,6 @@ export default {
     scrollLast () {
       const container = this.$el.querySelector('.messages')
       container.scrollTop = container.scrollHeight
-    },
-    showSidebar () {
-      this.isShowSidebar = true
-    },
-    hideSidebar () {
-      this.isShowSidebar = false
     }
   }
 }
@@ -114,30 +89,6 @@ export default {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  .room-header {
-    padding: 16px;
-    display: flex;
-    .room-burger {
-      display: none;
-      color: #444;
-    }
-    * {
-      flex-shrink: 0;
-    }
-    .spacer {
-      flex-grow: 1;
-    }
-    .toggle-star, .action-link {
-      padding: 0 1rem;
-      color: #cbced1;
-    }
-    .action-link:hover {
-      color: #1d74f5;
-    }
-    .toggle-star.on, .toggle-star:hover {
-      color: #f6c502;
-    }
-  }
   .messages {
     flex: 1 1 0;
     overflow-x: hidden;
@@ -171,11 +122,6 @@ export default {
     width: 100%;
     height: 100%;
     transition: right 0.25s cubic-bezier(0.5, 0, 0.1, 1), transform 0.1s linear, -webkit-transform 0.1s linear;
-    .room-header {
-      .room-burger {
-        display: flex;
-      }
-    }
   }
 }
 </style>

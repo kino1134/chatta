@@ -1,13 +1,8 @@
 <template>
-  <div class="container is-fluid" :class="{ 'show-sidebar': isShowSidebar }">
+  <div class="container is-fluid">
     <RoomList/>
     <div class="room">
-      <header class="room-header">
-        <a @click.stop="showSidebar" class="room-burger">
-          <i class="fa fa-bars fa-lg"></i>
-        </a>
-        ホーム
-      </header>
+      <RoomHeader/>
       <div class="messages">
         これはホーム画面です。
         <br>
@@ -19,33 +14,16 @@
 
 <script>
 import RoomList from '~/components/RoomList'
+import RoomHeader from '~/components/RoomHeader'
 
 export default {
   components: {
-    RoomList
-  },
-  data () {
-    return {
-      isShowSidebar: false
-    }
-  },
-  mounted () {
-    this.$el.addEventListener('click', this.hideSidebar)
-  },
-  destroyed () {
-    this.$el.removeEventListener('click', this.hideSidebar)
+    RoomList,
+    RoomHeader
   },
   head () {
     return {
       title: 'ホーム'
-    }
-  },
-  methods: {
-    showSidebar () {
-      this.isShowSidebar = true
-    },
-    hideSidebar () {
-      this.isShowSidebar = false
     }
   }
 }
@@ -56,15 +34,6 @@ export default {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
-  .room-header {
-    padding: 16px;
-    display: flex;
-    .room-burger {
-      display: none;
-      color: #444;
-      padding: 0 1rem;
-    }
-  }
   .messages {
     flex: 1 1 0;
     overflow-x: hidden;
@@ -80,11 +49,6 @@ export default {
     width: 100%;
     height: 100%;
     transition: right 0.25s cubic-bezier(0.5, 0, 0.1, 1), transform 0.1s linear, -webkit-transform 0.1s linear;
-    .room-header {
-      .room-burger {
-        display: flex;
-      }
-    }
   }
 }
 </style>
