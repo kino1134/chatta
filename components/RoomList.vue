@@ -112,6 +112,7 @@ export default {
     },
     async logout () {
       await axios.post('/api/logout').then((res) => {
+        this.$socket.close()
         this.$router.push('/signIn')
       })
     }
