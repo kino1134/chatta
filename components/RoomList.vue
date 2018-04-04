@@ -39,7 +39,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(favorite, index) in favorites" :key="index">
-            <nuxt-link :to="{ name: 'rooms-id', params: { id: favorite.room_id } }" class="menu-item">{{ favorite.name }}</nuxt-link>
+            <nuxt-link :to="{ name: 'rooms-index-id', params: { id: favorite.room_id } }" class="menu-item">{{ favorite.name }}</nuxt-link>
           </li>
         </ul>
       </template>
@@ -49,7 +49,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(channel, index) in channels" :key="index">
-            <nuxt-link :to="{ name: 'rooms-id', params: { id: channel.room_id } }" class="menu-item">{{ channel.name }}</nuxt-link>
+            <nuxt-link :to="{ name: 'rooms-index-id', params: { id: channel.room_id } }" class="menu-item">{{ channel.name }}</nuxt-link>
           </li>
         </ul>
       </template>
@@ -59,7 +59,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(group, index) in groups" :key="index">
-            <nuxt-link :to="{ name: 'rooms-id', params: { id: group.room_id } }" class="menu-item">{{ group.name }}</nuxt-link>
+            <nuxt-link :to="{ name: 'rooms-index-id', params: { id: group.room_id } }" class="menu-item">{{ group.name }}</nuxt-link>
           </li>
         </ul>
       </template>
@@ -69,7 +69,7 @@
         </p>
         <ul class="menu-list">
           <li v-for="(direct, index) in directs" :key="index">
-            <nuxt-link :to="{ name: 'rooms-id', params: { id: direct.room_id } }" class="menu-item">{{ direct.name }}</nuxt-link>
+            <nuxt-link :to="{ name: 'rooms-index-id', params: { id: direct.room_id } }" class="menu-item">{{ direct.name }}</nuxt-link>
           </li>
         </ul>
       </template>

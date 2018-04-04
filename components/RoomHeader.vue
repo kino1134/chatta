@@ -5,7 +5,7 @@
     </a>
     <a class="toggle-star" :class="{ on: isFavorite }"><i class="fa-star fa-lg" :class="{ fa: isFavorite, far: !isFavorite }"></i></a>
     <div class="room-info">
-      {{ room.name || "ホーム" }}
+      {{ this.roomName }}
     </div>
     <div class="spacer"></div>
     <div class="room-action">
@@ -19,14 +19,33 @@
 </template>
 
 <script>
+import axios from '~/plugins/axios'
+
 export default {
   props: {
-    room: {
-      default: function () {
-        return {}
+    roomId: String
+  },
+  data () {
+    return {
+      roomName: 'ホーム',
+      isFavorite: false
+    }
+  },
+  watch: {
+    roomId (val, oldVal) {
+      if (val) {
+        axios.get('/api/rooms/' + val).then((res) => {
+          this.roomName = res.data.name
+        })
+      } else {
+        this.roomName = 'ホーム'
       }
-    },
-    isFavorite: Boolean
+    }
+  },
+  head () {
+    return {
+      title: this.roomName
+    }
   }
 }
 </script>

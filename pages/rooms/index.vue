@@ -2,12 +2,11 @@
   <div class="container is-fluid">
     <RoomList/>
     <div class="room">
-      <RoomHeader/>
+      <RoomHeader :room-id="$route.params.id"/>
       <div class="messages">
-        これはホーム画面です。
-        <br>
-        左のリストからチャンネルを選んでください
+        <nuxt-child :key="$route.params.id"/>
       </div>
+      <PostArea :roomId="$route.params.id" />
     </div>
   </div>
 </template>
@@ -15,16 +14,13 @@
 <script>
 import RoomList from '~/components/RoomList'
 import RoomHeader from '~/components/RoomHeader'
+import PostArea from '~/components/PostArea'
 
 export default {
   components: {
     RoomList,
-    RoomHeader
-  },
-  head () {
-    return {
-      title: 'ホーム'
-    }
+    RoomHeader,
+    PostArea
   }
 }
 </script>
@@ -38,7 +34,7 @@ export default {
     flex: 1 1 0;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-left: 32px;
+    font-size: 14px;
   }
 }
 
