@@ -1,8 +1,11 @@
 <template>
-  <div class="container is-fluid">
+  <div class="container is-fluid" :class="{ 'show-sidebar': isShowSidebar }">
     <RoomList/>
     <div class="room">
       <header class="room-header">
+        <a @click.stop="showSidebar" class="room-burger">
+          <i class="fa fa-bars fa-lg"></i>
+        </a>
         <a class="toggle-star" :class="{ on: isFavorite }"><i class="fa-star fa-lg" :class="{ fa: isFavorite, far: !isFavorite }"></i></a>
         <div class="room-info">
           {{ room.name }}
@@ -54,6 +57,7 @@ export default {
     return {
       room: room,
       isFavorite: false,
+      isShowSidebar: false,
       messages: messages
     }
   },
@@ -67,7 +71,11 @@ export default {
     }
   },
   mounted () {
+    this.$el.addEventListener('click', this.hideSidebar)
     this.$nextTick(this.scrollLast)
+  },
+  destroyed () {
+    this.$el.removeEventListener('click', this.hideSidebar)
   },
   sockets: {
     posted (message) {
@@ -86,6 +94,12 @@ export default {
     scrollLast () {
       const container = this.$el.querySelector('.messages')
       container.scrollTop = container.scrollHeight
+    },
+    showSidebar () {
+      this.isShowSidebar = true
+    },
+    hideSidebar () {
+      this.isShowSidebar = false
     }
   }
 }
@@ -103,6 +117,10 @@ export default {
   .room-header {
     padding: 16px;
     display: flex;
+    .room-burger {
+      display: none;
+      color: #444;
+    }
     * {
       flex-shrink: 0;
     }
@@ -143,6 +161,21 @@ export default {
   }
   .message-info > * {
     margin-right: 5px;
+  }
+}
+
+@media(max-width: 779px) {
+  .room {
+    position: fixed;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transition: right 0.25s cubic-bezier(0.5, 0, 0.1, 1), transform 0.1s linear, -webkit-transform 0.1s linear;
+    .room-header {
+      .room-burger {
+        display: flex;
+      }
+    }
   }
 }
 </style>

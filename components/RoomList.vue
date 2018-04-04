@@ -123,12 +123,23 @@ export default {
 <style lang="scss" scoped>
 $sidebar-width: 220px;
 
+@media(max-width: 779px) {
+  .sidebar {
+    transform: translate3d($sidebar-width * -1, 0, 0);
+    z-index: 2;
+  }
+  .show-sidebar .sidebar {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
 .sidebar {
   flex: 0 0 $sidebar-width;
   background-color: #abcdef;
   display: flex;
   flex-direction: column;
   height: 100%;
+  transition: transform 0.3s;
 
   .login-user {
     font-size: 1.2em;
