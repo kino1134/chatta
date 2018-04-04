@@ -4,6 +4,7 @@ import VueSocketio from 'vue-socket.io'
 // import * as Cookies from 'tiny-cookie'
 
 const socket = client('http://localhost:3000', {
+  autoConnect: false
   // query: {
   //   'api.sid': Cookies.get('connect.sid')
   // }
@@ -17,6 +18,9 @@ socket.on('ping', () => {
 })
 socket.on('pong', () => {
   console.log('pong')
+})
+socket.on('disconnect', () => {
+  console.log('disconnect')
 })
 
 Vue.use(VueSocketio, socket)
