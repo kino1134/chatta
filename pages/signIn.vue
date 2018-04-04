@@ -12,16 +12,16 @@
       </div>
       <div class="field">
         <div class="control has-icons-left">
-          <input v-model="password" class="input is-large" type="password" placeholder="Password">
+          <input v-model="password" class="input is-large" type="password" placeholder="Password" @keydown.enter="signIn">
           <span class="icon is-large is-left">
             <i class="fas fa-key"></i>
           </span>
         </div>
       </div>
       <div class="field">
-        <p class="control has-text-centered">
-          <a @click="signIn" class="button is-primary is-large">ログイン</a>
-        </p>
+        <div class="control has-text-centered">
+          <a @click="signIn" class="button is-primary is-large" tabindex="0">ログイン</a>
+        </div>
       </div>
     </div>
     <p class="has-text-grey has-text-centered">

@@ -17,7 +17,7 @@
       </a>
       </p>
       <p class="control main">
-      <textarea v-model="inputMessage" class="textarea is-radiusless" :rows="rows" placeholder="メッセージ"></textarea>
+      <textarea v-model="inputMessage" class="textarea is-radiusless" :rows="rows" placeholder="メッセージ" @keydown.shift.enter.prevent="sendPost"></textarea>
       </p>
       <p class="control">
       <button class="button is-primary" v-on:click="sendPost" :disabled="notInput">
