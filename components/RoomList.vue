@@ -31,6 +31,19 @@
           </div>
         </div>
       </div>
+      <div class="field is-grouped">
+        <p class="control has-icons-left search-box">
+          <input class="input" type="text">
+          <span class="icon is-left">
+            <i class="fas fa-search"></i>
+          </span>
+        </p>
+        <p class="control">
+          <a class="button is-success">
+            <i class="fas fa-plus"></i>
+          </a>
+        </p>
+      </div>
     </header>
     <div class="room-list">
       <template v-if="favorites && favorites.length > 0">
@@ -121,7 +134,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$sidebar-width: 220px;
+$sidebar-width: 280px;
 
 @media(max-width: 779px) {
   .sidebar {
@@ -149,6 +162,12 @@ $sidebar-width: 220px;
     }
     #account-menu {
       left: 24px;
+    }
+    .field {
+      padding: 4px 12px;
+      .search-box {
+        flex-shrink: 1;
+      }
     }
   }
 
