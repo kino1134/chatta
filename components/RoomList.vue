@@ -39,9 +39,9 @@
           </span>
         </p>
         <p class="control">
-          <a class="button is-success">
+        <nuxt-link :to="{ name: 'rooms-index-create' }" class="button is-success">
             <i class="fas fa-plus"></i>
-          </a>
+          </nuxt-link>
         </p>
       </div>
     </header>
