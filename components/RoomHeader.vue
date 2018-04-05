@@ -31,15 +31,13 @@ export default {
       isFavorite: false
     }
   },
-  watch: {
-    roomId (val, oldVal) {
-      if (val) {
-        axios.get('/api/rooms/' + val).then((res) => {
-          this.roomName = res.data.name
-        })
-      } else {
-        this.roomName = 'ホーム'
-      }
+  mounted () {
+    if (this.roomId) {
+      axios.get('/api/rooms/' + this.roomId).then((res) => {
+        this.roomName = res.data.name
+      })
+    } else {
+      this.roomName = 'ホーム'
     }
   },
   head () {
