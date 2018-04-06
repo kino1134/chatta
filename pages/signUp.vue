@@ -47,7 +47,7 @@
       </div>
       <div class="field">
         <div class="control has-text-centered">
-          <a @click="signUp" class="button is-primary is-large">Sign Up</a>
+          <button @click="signUp" class="button is-primary is-large">Sign Up</button>
         </div>
       </div>
     </div>

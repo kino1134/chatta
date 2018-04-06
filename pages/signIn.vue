@@ -20,7 +20,7 @@
       </div>
       <div class="field">
         <div class="control has-text-centered">
-          <a @click="signIn" class="button is-primary is-large" tabindex="0">ログイン</a>
+          <button @click="signIn" class="button is-primary is-large" tabindex="0">ログイン</button>
         </div>
       </div>
     </div>
