@@ -7,7 +7,7 @@ const schema = new mongoose.Schema({
     lowercase: true,
     trim: true,
     unique: true,
-    match: /^[a-zA-Z0-9_]+$/
+    match: /^[a-zA-Z0-9_.-]+$/
   },
   user_name: {
     type: String
