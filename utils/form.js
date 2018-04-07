@@ -21,7 +21,7 @@ export function preventDoubleSubmission (fn) {
 }
 
 function isPromise (obj) {
-  return typeof obj.then === 'function' && typeof obj.catch === 'function'
+  return obj && typeof obj.then === 'function' && typeof obj.catch === 'function'
 }
 
 function isLoading (el, arg) {
