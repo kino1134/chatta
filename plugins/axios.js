@@ -6,4 +6,14 @@ if (process.server) {
   options.baseURL = `http://${process.env.HOST || 'localhost'}:${process.env.PORT || 3000}`
 }
 
-export default axios.create(options)
+const api = axios.create(options)
+
+api.interceptors.response.use((res) => {
+  console.log(res)
+  return Promise.resolve(res)
+}, (err) => {
+  console.log(err.response)
+  return Promise.reject(err)
+})
+
+export default api
