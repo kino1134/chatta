@@ -18,6 +18,10 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+html {
+  overflow: hidden;
+}
+
 .container {
   display: flex;
   width: 100%;
