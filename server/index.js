@@ -60,7 +60,7 @@ passport.serializeUser(User.serializeUser)
 passport.deserializeUser(User.deserializeUser)
 
 const auth = function (req, res, next) {
-  if (/^\/auth\/local$/.test(req.path)) {
+  if (req.path === '/auth/local' || req.path === '/users' && req.method === 'POST') {
     next()
   } else {
     if (req.isAuthenticated()) {
