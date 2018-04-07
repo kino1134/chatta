@@ -5,7 +5,7 @@
       <TopErrorMessage :errors="errors"/>
       <div class="field">
         <div class="control has-icons-left">
-          <input v-model="e_mail" class="input is-large" :class="errors.class('e_mail')" type="text" placeholder="E-Mail" autofocus="">
+          <input v-model="e_mail" class="input is-large" :class="errors.class('e_mail')" @blur="completionId" type="text" placeholder="E-Mail" autofocus="">
           <InputErrorMessage :msg="errors.msg('e_mail')"/>
           <span class="icon is-large is-left">
             <i class="fas fa-envelope"></i>
@@ -92,6 +92,14 @@ export default {
     }
   },
   methods: {
+    completionId () {
+      if (!this.user_id) {
+        const mail = this.e_mail.match(/^(.+)@/)
+        if (mail && mail[1]) {
+          this.user_id = mail[1]
+        }
+      }
+    },
     signUp: preventDoubleSubmission(function () {
       return axios.post('/api/users', {
         e_mail: this.e_mail,
