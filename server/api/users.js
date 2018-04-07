@@ -34,13 +34,13 @@ router.post('/users',
   ...validate([
     notBlank('e_mail').isEmail().withMessage('メールアドレスの形式で入力してください。'),
     notBlank('user_id').matches(/^[a-z0-9_.-]+$/i).withMessage('使用できない文字が含まれています。').custom((value) => {
-      User.find({ user_id: value }, function (err, user) {
-        return !user
+      return User.findOne({ user_id: value }).exec().then(user => {
+        if (user) { throw new Error('exists User') }
       })
     }).withMessage('すでに使われているIDです。'),
     notBlank('password').isLength({ min: 8 }).withMessage('最低8文字入力してください。').isAscii().withMessage('使用できない文字が含まれています').matches(/^(?=.*?[a-z])(?=.*?[A-Z])(?=.*?\d).+$/).withMessage('複雑さが足りません。'),
     notBlank('confirm_password').custom((value, { req }) => {
-      value === req.body.password
+      return value === req.body.password
     }).withMessage('パスワードが一致しません。')
   ]),
   function(req, res, next) {
