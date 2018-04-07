@@ -34,7 +34,7 @@ router.post('/users',
   ...validate([
     notBlank('e_mail').isEmail().withMessage('メールアドレスの形式で入力してください。'),
     notBlank('user_id').matches(/^[a-z0-9_.-]+$/i).withMessage('使用できない文字が含まれています。').custom((value) => {
-      return User.findOne({ user_id: value }).exec().then(user => {
+      return User.findOne({ user_id: value }).then(user => {
         if (user) { throw new Error('exists User') }
       })
     }).withMessage('すでに使われているIDです。'),
