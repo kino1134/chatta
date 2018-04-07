@@ -18,3 +18,9 @@ body {
 #app {
   display: flex;
 }
+
+.is-checkradio[type="radio"] + label {
+  &, &:before, &:after{
+    outline: none !important;
+  }
+}
