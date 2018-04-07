@@ -16,6 +16,9 @@ const schema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  room_list: {
+    type: [String]
   }
 })
 
