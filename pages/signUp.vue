@@ -2,9 +2,11 @@
   <div class="column is-6 is-offset-3">
     <h3 class="title has-text-grey has-text-centered">ユーザ登録</h3>
     <div class="box">
+      <TopErrorMessage :errors="errors"/>
       <div class="field">
         <div class="control has-icons-left">
-          <input v-model="e_mail" class="input is-large" type="text" placeholder="E-Mail" autofocus="">
+          <input v-model="e_mail" class="input is-large" :class="errors.class('e_mail')" type="text" placeholder="E-Mail" autofocus="">
+          <InputErrorMessage :msg="errors.msg('e_mail')"/>
           <span class="icon is-large is-left">
             <i class="fas fa-envelope"></i>
           </span>
@@ -12,16 +14,18 @@
       </div>
       <div class="field">
         <div class="control has-icons-left">
-          <input v-model="user_id" class="input is-large" type="text" placeholder="ID">
+          <input v-model="user_id" class="input is-large" :class="errors.class('user_id')" type="text" placeholder="ID">
+          <InputErrorMessage :msg="errors.msg('user_id')"/>
           <span class="icon is-large is-left">
             <i class="fas fa-at"></i>
           </span>
         </div>
-        <p class="help">※英字・数字・アンダーバー(_)のみ使用出来ます。</p>
+        <p class="help">※英数字・一部の記号(_.-)のみ使用出来ます。</p>
       </div>
       <div class="field">
         <div class="control has-icons-left">
-          <input v-model="user_name" class="input is-large" type="text" placeholder="Nick Name">
+          <input v-model="user_name" class="input is-large" :class="errors.class('user_name')" type="text" placeholder="Nick Name">
+          <InputErrorMessage :msg="errors.msg('user_name')"/>
           <span class="icon is-large is-left">
             <i class="fas fa-user"></i>
           </span>
@@ -30,7 +34,8 @@
       </div>
       <div class="field">
         <div class="control has-icons-left">
-          <input v-model="password" class="input is-large" type="password" placeholder="Password">
+          <input v-model="password" class="input is-large" :class="errors.class('password')" type="password" placeholder="Password">
+          <InputErrorMessage :msg="errors.msg('password')"/>
           <span class="icon is-large is-left">
             <i class="fas fa-key"></i>
           </span>
@@ -39,7 +44,8 @@
       </div>
       <div class="field">
         <div class="control has-icons-left">
-          <input v-model="confirm_password" class="input is-large" type="password" placeholder="Confirm Password">
+          <input v-model="confirm_password" class="input is-large" :class="errors.class('confirm_password')" type="password" placeholder="Confirm Password">
+          <InputErrorMessage :msg="errors.msg('confirm_password')"/>
           <span class="icon is-large is-left">
             <i class="fas fa-key"></i>
           </span>
@@ -59,11 +65,20 @@
 
 <script>
 import axios from '~/plugins/axios'
+import { preventDoubleSubmission } from '~/utils/form'
+import ErrorJson from '~/utils/ErrorJson'
+import TopErrorMessage from '~/components/TopErrorMessage'
+import InputErrorMessage from '~/components/InputErrorMessage'
 
 export default {
   layout: 'auth',
+  components: {
+    TopErrorMessage,
+    InputErrorMessage
+  },
   data () {
     return {
+      errors: new ErrorJson(),
       e_mail: '',
       user_id: '',
       user_name: '',
@@ -77,8 +92,8 @@ export default {
     }
   },
   methods: {
-    signUp () {
-      axios.post('/api/users', {
+    signUp: preventDoubleSubmission(function () {
+      return axios.post('/api/users', {
         e_mail: this.e_mail,
         user_id: this.user_id,
         user_name: this.user_name,
@@ -86,8 +101,10 @@ export default {
         confirm_password: this.confirm_password
       }).then((res) => {
         this.$router.push('/signIn')
+      }).catch((err) => {
+        this.errors = new ErrorJson(err.response.data)
       })
-    }
+    })
   }
 }
 </script>
