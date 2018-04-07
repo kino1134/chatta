@@ -21,9 +21,15 @@ const schema = new mongoose.Schema({
 
 schema.statics.authenticate = function (user_id, password, done) {
   model.findOne({ user_id: user_id }, function (err, user) {
-    if (err) { return done(err) }
-    if (!user) { return done(null, false) }
-    if (user.password !== password) { return done(null, false) } // パスワードを平文で入れている
+    if (err) {
+      return done(err)
+    }
+    if (!user) {
+      return done(null, false)
+    }
+    if (user.password !== password) { // TODO パスワードを平文で入れている
+      return done(null, false)
+    }
     return done(null, user)
   })
 }
