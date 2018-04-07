@@ -41,7 +41,8 @@ const sessionMiddleware = session({
   rolling: true,
   cookie: {
     httpOnly: false,
-    maxAge: 2 * 24 * 3600 * 1000 // ２日
+    // maxAge: 2 * 24 * 3600 * 1000 // ２日
+    maxAge: 30 * 60 * 1000 // 10分
   }
 })
 app.use(sessionMiddleware)
