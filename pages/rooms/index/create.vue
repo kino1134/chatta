@@ -26,7 +26,9 @@
         </div>
         <div class="field">
           <div class="control">
-            <a class="button is-primary is-large" tabindex="0">作成</a>
+            <button @click="create" class="button is-primary is-large" tabindex="0">
+              作成
+            </button>
           </div>
         </div>
       </div>
@@ -35,6 +37,8 @@
 </template>
 
 <script>
+import { preventDoubleSubmission } from '~/utils/form'
+
 export default {
   transition: {
     name: 'fade'
@@ -43,6 +47,13 @@ export default {
     return {
       title: '新規ルーム作成'
     }
+  },
+  methods: {
+    create: preventDoubleSubmission(function (event) {
+      console.log('wrap!')
+      console.log(event)
+      console.log(this)
+    })
   }
 }
 </script>
