@@ -34,7 +34,7 @@ export default {
   mounted () {
     if (this.roomId) {
       axios.get('/api/rooms/' + this.roomId).then((res) => {
-        this.roomName = res.data.name
+        this.roomName = res.data.room_name || res.data.room_id
       })
     } else {
       this.roomName = 'ホーム'
