@@ -58,4 +58,16 @@ router.post('/users',
     })
 })
 
+router.post('/users/favorite/:room_id', function(req, res, next) {
+  const room = req.user.room_list.find(x => x.room_id === req.params.room_id)
+  room.favorite = !room.favorite
+  req.user.save((err, obj) => {
+    if (err) {
+      res.status(500).json(err)
+    } else {
+      res.json(obj)
+    }
+  })
+})
+
 export default router
