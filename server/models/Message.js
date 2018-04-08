@@ -2,8 +2,14 @@ import mongoose from 'mongoose'
 
 const schema = new mongoose.Schema({
   user_name:  String,
-  user_id:    String,
-  room_id:    String,
+  user_id: {
+    type: String,
+    index: true
+  },
+  room_id: {
+    type: String,
+    index: true
+  },
   body:       String,
   posted:     Date
 })
