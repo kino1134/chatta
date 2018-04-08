@@ -1,10 +1,14 @@
 <template>
   <section>
     <div class="container">
-      <div class="column is-8 is-offset-2">
+      <div class="column is-8 is-offset-2 wrapper">
         <h2 class="title">
           新しいルームを作成します
         </h2>
+        <a @click="cancel" class="button is-small cancel">
+          <span class="icon"><i class="fa fa-times"></i></span>
+          <span>キャンセル</span>
+        </a>
         <TopErrorMessage :errors="errors"/>
         <div class="field">
           <div class="control">
@@ -91,6 +95,9 @@ export default {
     }
   },
   methods: {
+    cancel () {
+      this.$router.go(-1)
+    },
     create: preventDoubleSubmission(function (event) {
       return axios.post('/api/rooms', {
         room_id: this.room_id,
@@ -111,6 +118,17 @@ export default {
 .container {
   padding-top: 60px;
   flex: 1 0 auto;
+}
+
+.wrapper {
+  position: relative;
+
+  .button.cancel {
+    border: none;
+    position: absolute;
+    top: 0;
+    right: 30px;
+  }
 }
 
 .fade-enter {
