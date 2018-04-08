@@ -45,10 +45,12 @@ router.post('/rooms',
       if (err) {
         res.status(500).json(err)
       } else {
-        req.user.room_list.push(obj.room_id)
-        req.user.save((err_u, obj_u) => {
-          res.json(obj)
-        })
+        if (obj.room_type !== 'public') {
+          req.user.room_list.push(obj.room_id)
+          req.user.save((err_u, obj_u) => {
+            res.json(obj)
+          })
+        }
       }
     })
 })
