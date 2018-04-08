@@ -97,21 +97,32 @@ export default {
   data () {
     return {
       isVisibleAccountMenu: false,
-      favorites: [],
-      channels: [],
-      groups: [],
-      directs: []
+      rooms: []
     }
   },
   created () {
     document.addEventListener('click', this.hideAccountMenu)
     axios.get('/api/rooms').then((res) => {
-      const rooms = res.data
-      this.favorites = rooms.filter(x => x.room_type === 'favorite')
-      this.channels = rooms.filter(x => x.room_type === 'public')
-      this.groups = rooms.filter(x => x.room_type === 'private')
-      this.directs = rooms.filter(x => x.room_type === 'direct')
+      this.rooms = res.data
     })
+  },
+  computed: {
+    favorites () {
+      const favoriteIdList = this.$store.getters['user/favoriteRoomIdList']
+      return this.rooms.filter(x => favoriteIdList.find(f => f === x.room_id))
+    },
+    channels () {
+      const fs = this.favorites
+      return this.rooms.filter(x => x.room_type === 'public' && !fs.find(f => f.room_id === x.room_id))
+    },
+    groups () {
+      const fs = this.favorites
+      return this.rooms.filter(x => x.room_type === 'private' && !fs.find(f => f.room_id === x.room_id))
+    },
+    directs () {
+      const fs = this.favorites
+      return this.rooms.filter(x => x.room_type === 'direct' && !fs.find(f => f.room_id === x.room_id))
+    }
   },
   destroyed () {
     document.removeEventListener('click', this.hideAccountMenu)
@@ -188,6 +199,9 @@ $sidebar-width: 280px;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
+      i:before {
+        display: block;
+      }
     }
   }
 }
