@@ -3,7 +3,7 @@
     <div class="field has-addons">
       <p class="control">
       <a class="button">
-        +
+        <i class="fas fa-plus"></i>
       </a>
       </p>
       <p class="control">
@@ -13,7 +13,7 @@
       </p>
       <p class="control">
       <a class="button">
-        <i class="far fa-meh"></i>
+        <i class="far fa-smile"></i>
       </a>
       </p>
       <p class="control main">
@@ -21,7 +21,7 @@
       </p>
       <p class="control">
       <button class="button is-primary" v-on:click="sendPost" :disabled="notInput">
-        <i class="fas fa-comment-alt fa-lg"></i>
+        <i class="fas fa-comment-dots fa-lg"></i>
       </button>
       </p>
     </div>
