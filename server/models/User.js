@@ -18,7 +18,13 @@ const schema = new mongoose.Schema({
     required: true
   },
   room_list: {
-    type: [String]
+    type: [{
+      room_id: {
+        type: String,
+        unique: true
+      },
+      favorite: Boolean
+    }]
   }
 })
 
