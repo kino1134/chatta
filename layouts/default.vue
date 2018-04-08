@@ -17,14 +17,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped>
+<style>
 html {
   overflow: hidden;
-}
-
-.container {
-  display: flex;
-  width: 100%;
-  margin: 0;
 }
 </style>

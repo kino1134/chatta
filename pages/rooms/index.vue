@@ -16,6 +16,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.container {
+  display: flex;
+  width: 100%;
+  margin: 0;
+}
+
 .room {
   flex: 1 1 auto;
   display: flex;
