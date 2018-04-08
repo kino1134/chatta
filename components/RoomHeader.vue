@@ -1,6 +1,6 @@
 <template>
   <header class="room-header">
-    <a class="room-burger">
+    <a @click.stop="toggleSidebar" class="room-burger">
       <i class="fa fa-bars fa-lg"></i>
     </a>
     <a @click="toggleFavorite" class="toggle-star tooltip is-tooltip-bottom"
@@ -63,6 +63,10 @@ export default {
         type: 'user/toggleFavorite',
         roomId: this.roomId
       })
+    },
+    toggleSidebar () {
+      const el = document.querySelector('.sidebar')
+      el.classList.toggle('show')
     }
   }
 }

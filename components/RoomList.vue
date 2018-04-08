@@ -151,9 +151,9 @@ $sidebar-width: 280px;
   .sidebar {
     transform: translate3d($sidebar-width * -1, 0, 0);
     z-index: 2;
-  }
-  .show-sidebar .sidebar {
-    transform: translate3d(0, 0, 0);
+    &.show {
+      transform: translate3d(0px, 0px, 0px);
+    }
   }
 }
 

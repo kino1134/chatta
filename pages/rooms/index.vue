@@ -11,6 +11,17 @@ import RoomList from '~/components/RoomList'
 export default {
   components: {
     RoomList
+  },
+  mounted () {
+    document.addEventListener('click', this.hideShowbar)
+  },
+  destroyed () {
+    document.removeEventListener('click', this.hideShowbar)
+  },
+  methods: {
+    hideShowbar () {
+      document.querySelector('.sidebar').classList.remove('show')
+    }
   }
 }
 </script>
