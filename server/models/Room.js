@@ -16,6 +16,10 @@ const schema = new mongoose.Schema({
     enum: ['public', 'private', 'direct']
   },
   description: String,
+  direct_users: {
+    type: [String],
+    index: true
+  }
 })
 
 export default mongoose.model('Room', schema)
