@@ -1,27 +1,32 @@
 <template>
   <div>
     <RoomHeader :room-id="$route.params.id"/>
-    <div class="messages">
-      <article v-for="(message, index) in messages" class="media">
-        <figure class="media-left">
-          <p class="image avator"><img src="https://bulma.io/images/placeholders/128x128.png"></p>
-        </figure>
-        <div class="media-content">
-          <div class="content">
-            <p>
-            <span class="message-info">
-              <strong>{{ message.user_name }}</strong>
-              <small>{{ message.user_id }}</small>
-              <small>{{ message.posted | moment('LLLL')  }}</small>
-            </span>
-            <br>
-            <span v-html="markdown(message.body)"></span>
-            </p>
-          </div>
+    <div class="room-wrapper">
+      <div class="messages-wrapper">
+        <div class="messages">
+          <article v-for="(message, index) in messages" class="media">
+            <figure class="media-left">
+              <p class="image avator"><img src="https://bulma.io/images/placeholders/128x128.png"></p>
+            </figure>
+            <div class="media-content">
+              <div class="content">
+                <p>
+                <span class="message-info">
+                  <strong>{{ message.user_name }}</strong>
+                  <small>{{ message.user_id }}</small>
+                  <small>{{ message.posted | moment('LLLL')  }}</small>
+                </span>
+                <br>
+                <span v-html="markdown(message.body)"></span>
+                </p>
+              </div>
+            </div>
+          </article>
         </div>
-      </article>
+        <PostArea :roomId="$route.params.id" />
+      </div>
+      <nuxt-child class="room-action"/>
     </div>
-    <PostArea :roomId="$route.params.id" />
   </div>
 </template>
 
@@ -71,6 +76,22 @@ export default {
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/functions";
 @import "~bulma/sass/utilities/derived-variables";
+
+.room-wrapper {
+  height: 100%;
+  display: flex;
+}
+
+.messages-wrapper {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.room-action {
+  border-left: 1px solid rgba(255, 255, 255, .1);
+  box-shadow: rgba(0, 0, 0, .1) -1px 0 0;
+}
 
 .messages {
   flex: 1 1 0;

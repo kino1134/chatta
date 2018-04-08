@@ -3,7 +3,8 @@
     <a class="room-burger">
       <i class="fa fa-bars fa-lg"></i>
     </a>
-    <a @click="toggleFavorite" class="toggle-star tooltip is-tooltip-bottom" :class="{ on: isFavorite }" :data-tooltip="isFavorite ? 'お気に入りから外す' : 'お気に入りに追加'">
+    <a @click="toggleFavorite" class="toggle-star tooltip is-tooltip-bottom"
+      :class="{ on: isFavorite }" :data-tooltip="isFavorite ? 'お気に入りから外す' : 'お気に入りに追加'">
       <i class="fa-star fa-lg" :class="{ fa: isFavorite, far: !isFavorite }"></i>
     </a>
     <div class="room-info">
@@ -11,7 +12,11 @@
     </div>
     <div class="spacer"></div>
     <div class="room-action">
-      <a class="action-link tooltip is-tooltip-bottom" data-tooltip="ルーム情報"><i class="fa fa-info-circle fa-lg"></i></a>
+      <nuxt-link
+        :to="{ name: 'rooms-index-id-info', params: { id: this.roomId } }"
+        class="action-link tooltip is-tooltip-bottom" data-tooltip="ルーム情報">
+        <i class="fa fa-info-circle fa-lg"></i>
+      </nuxt-link>
       <a class="action-link tooltip is-tooltip-bottom" data-tooltip="メッセージ検索"><i class="fa fa-search fa-lg"></i></a>
       <a class="action-link tooltip is-tooltip-bottom" data-tooltip="所属ユーザ一覧"><i class="fa fa-users fa-lg"></i></a>
       <a class="action-link tooltip is-tooltip-bottom" data-tooltip="ユーザ招待"><i class="fa fa-user-plus fa-lg"></i></a>
