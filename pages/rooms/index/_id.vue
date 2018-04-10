@@ -90,6 +90,7 @@ export default {
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  width: 1vw;
 }
 
 .room-action {
@@ -98,7 +99,7 @@ export default {
 }
 
 .messages {
-  flex: 1 1 0;
+  flex: 1 1 auto;
   overflow-x: hidden;
   overflow-y: scroll;
   font-size: 14px;
@@ -123,3 +124,10 @@ export default {
   }
 }
 </style>
+
+<style module>
+pre {
+  width: 100%;
+}
+</style>
+

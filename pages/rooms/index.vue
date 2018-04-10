@@ -34,9 +34,11 @@ export default {
 }
 
 .room {
-  flex: 1 1 auto;
+  flex: 1 1 100%;
   display: flex;
   flex-direction: column;
+  width: 1vw;
+  height: 100vh;
 
   @media(max-width: 779px) {
     & {
