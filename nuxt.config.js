@@ -23,7 +23,8 @@ module.exports = {
   */
   css: [
     { src: '~/assets/css/bulma-all.sass', lang: 'sass' },
-    { src: '~/assets/css/base.scss', lang: 'scss' }
+    { src: '~/assets/css/base.scss', lang: 'scss' },
+    'highlight.js/styles/tomorrow-night-eighties.css'
   ],
   plugins: [
     '~/plugins/vue-moment',
@@ -36,7 +37,7 @@ module.exports = {
   ** Add axios globally
   */
   build: {
-    vendor: ['axios', 'moment', 'vue-moment', 'marked', 'vue-socket.io'],
+    vendor: ['axios', 'moment', 'vue-moment', 'marked', 'highlight.js', 'vue-socket.io'],
     postcss: {
       plugins: {
         'postcss-custom-properties': false

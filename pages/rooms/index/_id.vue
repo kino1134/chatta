@@ -32,6 +32,7 @@
 
 <script>
 import marked from 'marked'
+import highlight from 'highlight.js'
 import axios from '~/plugins/axios'
 import RoomHeader from '~/components/RoomHeader'
 import PostArea from '~/components/PostArea'
@@ -65,7 +66,10 @@ export default {
       return marked(value, {
         sanitize: true,
         gfm: true,
-        breaks: true
+        breaks: true,
+        highlight: function (code, lang) {
+          return lang ? highlight.highlight(lang, code).value : highlight.highlightAuto(code).value
+        }
       })
     }
   }
