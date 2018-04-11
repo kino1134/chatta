@@ -105,7 +105,7 @@ export default {
   font-size: 14px;
 
   .media {
-    padding: 8px 50px 4px 20px;
+    padding: 8px 30px 4px 20px;
     .avator {
       width: 36px;
       height: 36px;
@@ -128,6 +128,8 @@ export default {
 <style module>
 pre {
   width: 100%;
+  background: #2d2d2d;
+  color: #cccccc;
 }
 </style>
 
