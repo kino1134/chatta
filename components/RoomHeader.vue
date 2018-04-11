@@ -12,15 +12,21 @@
     </div>
     <div class="spacer"></div>
     <div class="room-action">
-      <nuxt-link
-        :to="{ name: 'rooms-index-id-info', params: { id: this.roomId } }"
-        class="action-link tooltip is-tooltip-bottom" data-tooltip="ルーム情報">
+      <a ref="info" @click="toggleAction('info')" class="action-link tooltip is-tooltip-bottom" data-tooltip="ルーム情報">
         <i class="fa fa-info-circle fa-lg"></i>
-      </nuxt-link>
-      <a class="action-link tooltip is-tooltip-bottom" data-tooltip="メッセージ検索"><i class="fa fa-search fa-lg"></i></a>
-      <a class="action-link tooltip is-tooltip-bottom" data-tooltip="所属ユーザ一覧"><i class="fa fa-users fa-lg"></i></a>
-      <a class="action-link tooltip is-tooltip-bottom" data-tooltip="ユーザ招待"><i class="fa fa-user-plus fa-lg"></i></a>
-      <a class="action-link tooltip is-tooltip-bottom" data-tooltip="その他"><i class="fa fa-ellipsis-v fa-lg"></i></a>
+      </a>
+      <a ref="search" @click="toggleAction('search')" class="action-link tooltip is-tooltip-bottom" data-tooltip="メッセージ検索">
+        <i class="fa fa-search fa-lg"></i>
+      </a>
+      <a ref="users" @click="toggleAction('users')" class="action-link tooltip is-tooltip-bottom" data-tooltip="所属ユーザ一覧">
+        <i class="fa fa-users fa-lg"></i>
+      </a>
+      <a ref="invite" @click="toggleAction('invite')" class="action-link tooltip is-tooltip-bottom" data-tooltip="ユーザ招待">
+        <i class="fa fa-user-plus fa-lg"></i>
+      </a>
+      <a class="action-link tooltip is-tooltip-bottom" data-tooltip="その他">
+        <i class="fa fa-ellipsis-v fa-lg"></i>
+      </a>
     </div>
   </header>
 </template>
@@ -45,6 +51,8 @@ export default {
     } else {
       this.roomName = 'ホーム'
     }
+
+    this.actionClass()
   },
   head () {
     return {
@@ -57,6 +65,11 @@ export default {
       return favoriteList.find((x) => x.room_id === this.roomId)
     }
   },
+  watch: {
+    '$route' (to, from) {
+      this.actionClass()
+    }
+  },
   methods: {
     toggleFavorite () {
       this.$store.dispatch({
@@ -67,6 +80,24 @@ export default {
     toggleSidebar () {
       const el = document.querySelector('.sidebar')
       el.classList.toggle('show')
+    },
+    toggleAction (action) {
+      const prefix = 'rooms-index-id-'
+      if (this.$router.currentRoute.name !== prefix + action) {
+        this.$router.push(this.$router.currentRoute.path + '/' + action)
+      } else {
+        this.$router.go(-1)
+      }
+    },
+    actionClass () {
+      this.$refs.info.classList.remove('current')
+      this.$refs.search.classList.remove('current')
+      this.$refs.users.classList.remove('current')
+      this.$refs.invite.classList.remove('current')
+      const prefix = 'rooms-index-id-'
+      if (this.$router.currentRoute.name === prefix + 'info') {
+        this.$refs.info.classList.add('current')
+      }
     }
   }
 }
@@ -90,8 +121,8 @@ export default {
     padding: 0 1rem;
     color: #cbced1;
   }
-  .action-link:hover {
-    color: #1d74f5;
+  .action-link:hover, .action-link.current {
+    color: #23d160;
   }
   .toggle-star.on, .toggle-star:hover {
     color: #f6c502;
