@@ -20,7 +20,7 @@
       <textarea v-model="inputMessage" class="textarea is-radiusless" :rows="rows" placeholder="メッセージ" @keydown.shift.enter.prevent="sendPost"></textarea>
       </p>
       <p class="control">
-      <button class="button is-primary" v-on:click="sendPost" :disabled="notInput">
+      <button class="button is-success" v-on:click="sendPost" :disabled="notInput">
         <i class="fas fa-comment-dots fa-lg"></i>
       </button>
       </p>

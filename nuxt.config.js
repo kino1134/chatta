@@ -1,5 +1,8 @@
 module.exports = {
   mode: 'spa',
+  loading: {
+    color:  '#23d160'
+  },
   /*
   ** Headers of the page
   */
