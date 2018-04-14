@@ -9,6 +9,7 @@ import session from 'express-session'
 import connectRedis from 'connect-redis'
 import passport from 'passport'
 import { Strategy as LocalStrategy } from 'passport-local'
+import createLogger from './createLogger'
 
 import api from './api'
 import socket from './socket'
@@ -79,6 +80,34 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.use(function (req, res, next) {
+  const start = new Date()
+  const logger = createLogger(req)
+  logger.debug('[API][Request] "%s" "%s" "%s"', req.method, req.path, JSON.stringify(req.body))
+
+  req.logger = logger
+
+  const originalSend = res.send
+  let logBody
+  res.send = function (body) {
+    originalSend.call(this, body)
+    logBody = body
+  }
+
+  res.on('finish', () => {
+    logger.debug('[API][Response] "%s" "%s" "%d", "%dms", "%s"', req.method, req.path, res.statusCode, new Date() - start, logBody)
+  })
+
+  mongoose.set('debug', function (coll, method, query, doc) {
+    logger.debug(coll)
+    logger.debug(method)
+    logger.debug(query)
+    logger.debug(doc)
+  })
+
+  next()
+})
+
 // Import API Routes
 // ここまでにミドルウェアの設定(app.use)をすべて行う必要がある
 app.use('/api', auth, api)
@@ -127,10 +156,17 @@ io.use(function (socket, next) {
     next()
   })
 })
-io.use(function (socket, next) {
-  console.log(socket.request.session)
-  console.log(socket.request.user)
-  next()
-})
+// ログの出力方法が分からないので、debugオプションをONにするだけ
+// io.use(function (socket, next) {
+//   const logger = createLogger(socket.request)
+//   logger.debug('[Socket][Request]')
+
+//   socket.request.logger = logger
+//   socket.request.res.on('finish', () => {
+//     logger.debug('[Socket][Response]')
+//   })
+
+//   next()
+// })
 
 io.on('connect', socket)
