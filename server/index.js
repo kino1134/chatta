@@ -4,7 +4,7 @@ import socketIo from 'socket.io'
 import redisAdapter from 'socket.io-redis'
 import bodyParser from 'body-parser'
 import { Nuxt, Builder } from 'nuxt'
-import mongoose from 'mongoose'
+import mongoose from './mongoose'
 import session from 'express-session'
 import connectRedis from 'connect-redis'
 import passport from 'passport'
@@ -98,11 +98,8 @@ app.use(function (req, res, next) {
     logger.debug('[API][Response] "%s" "%s" "%d", "%dms", "%s"', req.method, req.path, res.statusCode, new Date() - start, logBody)
   })
 
-  mongoose.set('debug', function (coll, method, query, doc) {
-    logger.debug(coll)
-    logger.debug(method)
-    logger.debug(query)
-    logger.debug(doc)
+  mongoose.set('debug', function (coll, method, args) {
+    logger.debug('[Mongo][Call] %s %s %s', coll, method, JSON.stringify(args))
   })
 
   next()
